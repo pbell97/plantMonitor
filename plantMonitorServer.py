@@ -87,8 +87,9 @@ def takePictures():
 
 @app.route('/startCamera/', methods=['GET'])
 def startCamera():
-	global cameraThread
+	global cameraThread, getPics
 	if (not cameraIsOn()):
+		getPics = True
 		cameraThread = threading.Thread(target=takePictures)
 		cameraThread.start()
 		print("Started camera thread")
