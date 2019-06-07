@@ -17,24 +17,24 @@ CORS(app, support_credentials=True)
 
 # Returns dict of JSON from file
 def loadJSON(configPath):
-    configDict = {}
-    with open(configPath, 'r') as f:
-        configDict = json.loads(f.read())
-    return configDict
+	configDict = {}
+	with open(configPath, 'r') as f:
+		configDict = json.loads(f.read())
+	return configDict
 
 # Saves a JSON
 def saveJSON(configPath, config):
-    configString = json.dumps(config)
-    with open(configPath, 'w') as f:
-        f.write(configString)
+	configString = json.dumps(config)
+	with open(configPath, 'w') as f:
+		f.write(configString)
 
 # Bool if given path exists or not
 def directoryExists(directory):
-    return os.path.exists(directory)
-    
+	return os.path.exists(directory)
+	
 # Makes a given directory
 def makeDirectory(directory):
-    os.mkdir(directory)
+	os.mkdir(directory)
 
 configPath = "/boot/plantConfig.json"
 config = loadJSON(configPath)
@@ -47,42 +47,43 @@ cameraThread = None
 
 # Routinely takes pictures
 def takePictures():
-    global configPath, config, getPics
-    timeSinceLastPic = 0
+	global configPath, config, getPics
+	timeSinceLastPic = 0
 
-    while (getPics):
-        # Sleeps 5 seconds routinely to check if thread should end
-        if (time.time() - timeSinceLastPic < int(config['timeInterval'])):
-            time.sleep(5)
-            continue
-
-
-        # Gets time and file names
-        now = datetime.datetime.now()
-        folderName = str(now.month) + "-" + str(now.day) + "-" + str(now.year)
-        fileName = str(now.hour) + ":" + str(now.minute) + ":" + str(now.second)
-
-        # Checks if its within picture taking time
-        currentHour = now.hour
-        if (now.hour > int(config['endTime']) or now.hour < int(config['startTime'])):
-            print("Pic time is not allowed. Designated times are " + str(int(config['startTime'])) +  "-" + str(int(config['endTime'])) + " but got " + str(currentHour))
-            time.sleep(int(config['timeInterval']))
-            continue
+	while (getPics):
+		# Sleeps 5 seconds routinely to check if thread should end
+		if (time.time() - timeSinceLastPic < int(config['timeInterval'])):
+			time.sleep(5)
+			continue
 
 
-        # Makes the day's folder if it doesn't exist
-        if (not directoryExists(config['rootPicsDirectory'] + folderName)):
-            makeDirectory(config['rootPicsDirectory'] + folderName)
+		# Gets time and file names
+		now = datetime.datetime.now()
+		folderName = str(now.month) + "-" + str(now.day) + "-" + str(now.year)
+		fileName = str(now.hour) + ":" + str(now.minute) + ":" + str(now.second)
 
-        # Takes picture
-        with picamera.PiCamera() as cam:
-            time.sleep(1)
-            fullFilePath = config['rootPicsDirectory'] + folderName + "/" + fileName + ".jpg"
-            cam.capture(fullFilePath)
-            print("Took pic " + str(fileName) )
-            timeSinceLastPic = time.time()
+		# Checks if its within picture taking time
+		currentHour = now.hour
+		if (now.hour > int(config['endTime']) or now.hour < int(config['startTime'])):
+			print("Pic time is not allowed. Designated times are " + str(int(config['startTime'])) +  "-" + str(int(config['endTime'])) + " but got " + str(currentHour))
+			time.sleep(int(config['timeInterval']))
+			continue
 
-        
+
+		# Makes the day's folder if it doesn't exist
+		if (not directoryExists(config['rootPicsDirectory'] + folderName)):
+			makeDirectory(config['rootPicsDirectory'] + folderName)
+
+		# Takes picture
+		with picamera.PiCamera() as cam:
+			time.sleep(1)
+			fullFilePath = config['rootPicsDirectory'] + folderName + "/" + fileName + ".jpg"
+			cam.capture(fullFilePath)
+			print("Took pic " + str(fileName) )
+			timeSinceLastPic = time.time()
+
+	print("GetPics was false! Ending")
+		
 
 @app.route('/startCamera/', methods=['GET'])
 def startCamera():
@@ -105,6 +106,8 @@ def stopCamera():
 		time.sleep(6)
 		cameraThread = None
 
+	getPics = False
+
 	return jsonify(True), 200, {'Access-Control-Allow-Origin': '*'}
 
 # Status of camera
@@ -123,18 +126,18 @@ def cameraIsRunning():
 @cross_origin(supports_credentials=True)
 def getCurrentView():
 	# Take a picture
-    with picamera.PiCamera() as cam:
-        time.sleep(1)
-        fullFilePath = config['rootPicsDirectory'] + "currentView.jpg"
-        cam.capture(fullFilePath)
+	with picamera.PiCamera() as cam:
+		time.sleep(1)
+		fullFilePath = config['rootPicsDirectory'] + "currentView.jpg"
+		cam.capture(fullFilePath)
 
 
-    # Checks for a few seconds to see if it exists
-    for i in range(5):
-        if (os.path.isfile(config['rootPicsDirectory'] + "currentView.jpg")):
-            return send_file(config['rootPicsDirectory'] + "currentView.jpg", attachment_filename='currentView.jpg'), 200, {'Access-Control-Allow-Origin': '*'}
-        elif (i == 4):
-            return "Picture wasn't taken", 500, {'Access-Control-Allow-Origin': '*'}
+	# Checks for a few seconds to see if it exists
+	for i in range(5):
+		if (os.path.isfile(config['rootPicsDirectory'] + "currentView.jpg")):
+			return send_file(config['rootPicsDirectory'] + "currentView.jpg", attachment_filename='currentView.jpg'), 200, {'Access-Control-Allow-Origin': '*'}
+		elif (i == 4):
+			return "Picture wasn't taken", 500, {'Access-Control-Allow-Origin': '*'}
 
 
 @app.route('/getPicture/<foldername>/<picture>', methods=['GET'])
@@ -151,7 +154,7 @@ def getFolders():
 	for item in subFoldersAndFiles:
 		if (os.path.isdir(config['rootPicsDirectory'] + item)):
 			folders.append(item)
-    
+	
 	return jsonify(folders), 200, {'Access-Control-Allow-Origin': '*'}
 
 @app.route('/existingFiles/<folder>', methods=['GET'])
