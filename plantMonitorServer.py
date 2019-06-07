@@ -90,7 +90,7 @@ def startCamera():
 	if (not cameraIsOn()):
 		cameraThread = threading.Thread(target=takePictures)
 		cameraThread.start()
-        print("Started camera thread")
+		print("Started camera thread")
 		returnObj = True
 	else:
 		returnObj = False
@@ -140,51 +140,51 @@ def getCurrentView():
 @app.route('/getPicture/<foldername>/<picture>', methods=['GET'])
 @cross_origin(supports_credentials=True)
 def getPicture(foldername, picture):
-    # Checks for a few seconds to see if it exists
-    return send_file(config['rootPicsDirectory'] + foldername + "/" + picture, attachment_filename=picture), 200, {'Access-Control-Allow-Origin': '*'}
+	# Checks for a few seconds to see if it exists
+	return send_file(config['rootPicsDirectory'] + foldername + "/" + picture, attachment_filename=picture), 200, {'Access-Control-Allow-Origin': '*'}
 
 
 @app.route('/existingFolders/', methods=['GET'])
 def getFolders():
-    subFoldersAndFiles = os.listdir(config['rootPicsDirectory'])
-    folders = []
-    for item in subFoldersAndFiles:
-        if (os.path.isdir(config['rootPicsDirectory'] + item)):
-            folders.append(item)
+	subFoldersAndFiles = os.listdir(config['rootPicsDirectory'])
+	folders = []
+	for item in subFoldersAndFiles:
+		if (os.path.isdir(config['rootPicsDirectory'] + item)):
+			folders.append(item)
     
-    return jsonify(folders), 200, {'Access-Control-Allow-Origin': '*'}
+	return jsonify(folders), 200, {'Access-Control-Allow-Origin': '*'}
 
 @app.route('/existingFiles/<folder>', methods=['GET'])
 def getFiles(folder):
-    subFoldersAndFiles = os.listdir(config['rootPicsDirectory'])
-    if (folder not in subFoldersAndFiles):
-        return "Folder not in root directory", 500, {'Access-Control-Allow-Origin': '*'}
+	subFoldersAndFiles = os.listdir(config['rootPicsDirectory'])
+	if (folder not in subFoldersAndFiles):
+		return "Folder not in root directory", 500, {'Access-Control-Allow-Origin': '*'}
 
-    files = os.listdir(config['rootPicsDirectory'] + folder)
-    return jsonify(files), 200, {'Access-Control-Allow-Origin': '*'}
+	files = os.listdir(config['rootPicsDirectory'] + folder)
+	return jsonify(files), 200, {'Access-Control-Allow-Origin': '*'}
 
 @app.route('/setTimeInterval/<interval>', methods=['GET'])
 def setTimeInterval(interval):
-    global config, configPath
-    config['timeInterval'] = interval
-    interval = int(interval)
-    saveJSON(configPath, config)
-    # int(config['timeInterval']) = interval
-    return jsonify(True), 200, {'Access-Control-Allow-Origin': '*'}
+	global config, configPath
+	config['timeInterval'] = interval
+	interval = int(interval)
+	saveJSON(configPath, config)
+	# int(config['timeInterval']) = interval
+	return jsonify(True), 200, {'Access-Control-Allow-Origin': '*'}
 
 @app.route('/setConfigs/', methods=['POST', 'OPTIONS'])
 def setConfig():
-    global config, configPath
-    config = json.loads(request.form['config'])
-    saveJSON(configPath, config)
-    print(config)
+	global config, configPath
+	config = json.loads(request.form['config'])
+	saveJSON(configPath, config)
+	print(config)
 
-    return jsonify(True), 200, {'Access-Control-Allow-Origin': '*'}
+	return jsonify(True), 200, {'Access-Control-Allow-Origin': '*'}
 
 @app.route('/getConfig/', methods=['GET'])
 def getConfig():
-    global config
-    return jsonify(config), 200, {'Access-Control-Allow-Origin': '*'}
+	global config
+	return jsonify(config), 200, {'Access-Control-Allow-Origin': '*'}
 
 
 
