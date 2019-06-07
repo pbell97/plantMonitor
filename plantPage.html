@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>Plant Monitor</title>
+</head>
+
+<body>
+    <div id="buttonsAndStatus">
+        Plant Monitor Status: <span id="statusCircle" class="dot"
+            style="width: 15px; height: 15px; background-color: red;border-radius: 50%; display: inline-block;position: relative; top:2px;"></span>
+        <span id="statusLabel">Off</span><br><br>
+        <button id="startMonitor">Start Plant Monitor</button><br><br>
+        <button id="stopMonitor">Stop Plant Monitor</button><br><br>
+    </div>
+    <div style="margin: auto; width: 80%;">
+        <div id="foldersDiv" style="width: 50%; float: left;">
+            Available Dates
+            <ul id="foldersList" style="overflow:hidden; overflow-y:auto; height:100px; width:200px;">
+                <li>Folder 1</li>
+                <li>Folder 2</li>
+            </ul>
+            <button onclick="getFolders()">Get Latest Dates</button>
+        </div>
+
+        <div id="filesDiv" style="margin-left: 15%;">
+            Available Pictures
+            <ul id="filesList" style="overflow:hidden; overflow-y:auto; height:100px; width:200px">
+                <li>File 1</li>
+                <li>File 2</li>
+            </ul>
+        </div>
+    </div>
+
+    <div>
+        <button id="getCurrentView" onclick="getCurrentView()">Get Current View</button>
+        <img id="currentViewPicture" style="width:300px; height:300px">
+    </div>
+</body>
+<script src="plantPage.js"></script>
+</html>

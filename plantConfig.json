@@ -1,0 +1,6 @@
+{
+    "timeInterval": 600,
+    "rootPicsDirectory": "/home/pi/Desktop/plantPics/",
+    "startTime": 6,
+    "endTime": 18
+}

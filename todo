@@ -1,0 +1,14 @@
+DONE - Add a time period section to config
+    Give it begining and end and it checks before each picture and if its not between
+    the time range it wont take a pic. That way it can stay on the whole time and not 
+    take pics during night. Also won't waste space
+- Add external script for downloading pics
+    Should provide list of days that pics have been taken, then you can select which 
+    day to download.
+DONE - Add external script for starting it all
+Done - Add external script for just viewing the current angle for setup
+DONE - Add external script for changing configs without unplugging SD card
+DONE - Make endpoint to get list of all folders
+DONE - Make endpoint to get list of all files in a folder
+
+- Make a local REST server on pi, and a HTML/javascript on front end
