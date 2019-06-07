@@ -84,7 +84,34 @@ function getCurrentView(){
     document.getElementById('currentViewPicture').src = src;
 }
 
+function startServer(){
+    makeGet(address + "/startCamera/", function(){});
+    setTimeout(getStatus, 1000);
+}
+
+function stopServer(){
+    makeGet(address + "/stopCamera/", function(){});
+    setTimeout(getStatus, 7000);
+}
+
+
+function getStatus(){
+    makeGet(address + "/cameraIsRunning/", updateStatus);
+}
+
+function updateStatus(status){
+    var dot = document.getElementById('statusCircle');
+    var statusEl = document.getElementById('statusLabel');
+    if (status == true){
+        dot.style.backgroundColor = "green";
+        statusEl.innerText = "On";
+    } else {
+        dot.style.backgroundColor = "red";
+        statusEl.innerText = "Off";
+    }
+}
 
 // Get folders
-makeGet(address + '/existingFolders/', updateFolders)
+makeGet(address + '/existingFolders/', updateFolders);
 getCurrentView();
+getStatus();

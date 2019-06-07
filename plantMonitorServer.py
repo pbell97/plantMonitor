@@ -90,6 +90,7 @@ def startCamera():
 	if (not cameraIsOn()):
 		cameraThread = threading.Thread(target=takePictures)
 		cameraThread.start()
+        print("Started camera thread")
 		returnObj = True
 	else:
 		returnObj = False

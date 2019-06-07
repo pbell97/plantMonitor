@@ -14,8 +14,9 @@
         Plant Monitor Status: <span id="statusCircle" class="dot"
             style="width: 15px; height: 15px; background-color: red;border-radius: 50%; display: inline-block;position: relative; top:2px;"></span>
         <span id="statusLabel">Off</span><br><br>
-        <button id="startMonitor">Start Plant Monitor</button><br><br>
-        <button id="stopMonitor">Stop Plant Monitor</button><br><br>
+        <button id="startMonitor" onclick="startServer()">Start Plant Monitor</button><br><br>
+        <button id="stopMonitor" onclick="stopServer()">Stop Plant Monitor</button><br><br>
+        <button id="getCurrentView" onclick="getCurrentView()">Get Current View</button><br><br>
     </div>
     <div style="margin: auto; width: 80%;">
         <div id="foldersDiv" style="width: 50%; float: left;">
@@ -30,14 +31,12 @@
         <div id="filesDiv" style="margin-left: 15%;">
             Available Pictures
             <ul id="filesList" style="overflow:hidden; overflow-y:auto; height:100px; width:200px">
-                <li>File 1</li>
-                <li>File 2</li>
+                <li>None</li>
             </ul>
         </div>
     </div>
 
     <div>
-        <button id="getCurrentView" onclick="getCurrentView()">Get Current View</button>
         <img id="currentViewPicture" style="width:300px; height:300px">
     </div>
 </body>
