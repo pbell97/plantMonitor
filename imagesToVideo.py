@@ -76,8 +76,8 @@ def createVideoFromFolder(path, fps):
     video = cv2.VideoWriter(video_name, 0, fps, (width, height))  
   
     # Appending the images to the video one by one 
-    # for image in images:  
-    #     video.write(cv2.imread(os.path.join(image_folder, image)))  
+    for image in images:  
+        video.write(cv2.imread(os.path.join(image_folder, image)))  
       
     # Deallocating memories taken for window creation 
     cv2.destroyAllWindows()  
