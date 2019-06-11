@@ -1,10 +1,9 @@
+# Source: https://www.life2coding.com/convert-image-frames-video-file-using-opencv-python/
 # importing libraries 
 import os 
 import cv2  
 from PIL import Image  
   
-# Checking the current directory path 
-print(os.getcwd())  
   
   
 
@@ -54,11 +53,15 @@ def createVideoFromFolder(path, fps):
     reszieImages(path)
     image_folder = '.' # make sure to use your folder 
     os.chdir(path) 
-      
-    images = [img for img in os.listdir(image_folder) 
+
+    # Gets and sorts images
+    images = os.listdir(image_folder) 
+    images = sorted(images, key=os.path.getmtime)
+    images = [img for img in images
               if img.endswith(".jpg") or
                  img.endswith(".jpeg") or
                  img.endswith("png")] 
+
      
     # Array images should only consider 
     # the image files ignoring others if any 
@@ -73,8 +76,8 @@ def createVideoFromFolder(path, fps):
     video = cv2.VideoWriter(video_name, 0, fps, (width, height))  
   
     # Appending the images to the video one by one 
-    for image in images:  
-        video.write(cv2.imread(os.path.join(image_folder, image)))  
+    # for image in images:  
+    #     video.write(cv2.imread(os.path.join(image_folder, image)))  
       
     # Deallocating memories taken for window creation 
     cv2.destroyAllWindows()  

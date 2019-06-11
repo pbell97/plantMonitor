@@ -151,6 +151,7 @@ def getPicture(foldername, picture):
 @app.route('/existingFolders/', methods=['GET'])
 def getFolders():
 	subFoldersAndFiles = os.listdir(config['rootPicsDirectory'])
+	subFoldersAndFiles = sorted(subFoldersAndFiles, key=os.path.getmtime)
 	folders = []
 	for item in subFoldersAndFiles:
 		if (os.path.isdir(config['rootPicsDirectory'] + item)):
@@ -161,6 +162,7 @@ def getFolders():
 @app.route('/existingFiles/<folder>', methods=['GET'])
 def getFiles(folder):
 	subFoldersAndFiles = os.listdir(config['rootPicsDirectory'])
+	subFoldersAndFiles = sorted(subFoldersAndFiles, key=os.path.getmtime)
 	if (folder not in subFoldersAndFiles):
 		return "Folder not in root directory", 500, {'Access-Control-Allow-Origin': '*'}
 
