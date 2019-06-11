@@ -168,7 +168,7 @@ def getFiles(folder):
 
 	files = os.listdir(config['rootPicsDirectory'] + folder)
 	os.chdir(config['rootPicsDirectory'] + folder)
-	files = sorted(subFoldersAndFiles, key=os.path.getmtime)
+	files = sorted(files, key=os.path.getmtime)
 	return jsonify(files), 200, {'Access-Control-Allow-Origin': '*'}
 
 @app.route('/setTimeInterval/<interval>', methods=['GET'])
