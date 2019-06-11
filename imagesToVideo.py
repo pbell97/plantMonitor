@@ -1,6 +1,7 @@
 # Source: https://www.life2coding.com/convert-image-frames-video-file-using-opencv-python/
 # importing libraries 
 import os 
+import json
 import cv2  
 from PIL import Image  
   
@@ -50,17 +51,20 @@ def reszieImages(path):
   
 # Video Generating function 
 def createVideoFromFolder(path, fps): 
+    files = os.listdir(path)
     reszieImages(path)
     image_folder = '.' # make sure to use your folder 
-    os.chdir(path) 
+    
 
     # Gets and sorts images
-    images = os.listdir(image_folder) 
-    images = sorted(images, key=os.path.getmtime)
+    os.chdir(path)
+    images = sorted(files, key=os.path.getmtime)
     images = [img for img in images
               if img.endswith(".jpg") or
                  img.endswith(".jpeg") or
                  img.endswith("png")] 
+
+    print("Sorted images: " + str(images))
 
      
     # Array images should only consider 
