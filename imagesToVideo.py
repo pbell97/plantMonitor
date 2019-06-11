@@ -51,14 +51,14 @@ def reszieImages(path):
   
 # Video Generating function 
 def createVideoFromFolder(path, fps): 
-    files = os.listdir(path)
     reszieImages(path)
     image_folder = '.' # make sure to use your folder 
     
 
     # Gets and sorts images
+    files = os.listdir(path)
     os.chdir(path)
-    images = sorted(files, key=os.path.getmtime)
+    images = sorted(files, key=os.path.getatime)
     images = [img for img in images
               if img.endswith(".jpg") or
                  img.endswith(".jpeg") or
@@ -69,7 +69,7 @@ def createVideoFromFolder(path, fps):
      
     # Array images should only consider 
     # the image files ignoring others if any 
-    print(images)  
+    # print(images)  
   
     frame = cv2.imread(os.path.join(image_folder, images[0])) 
   

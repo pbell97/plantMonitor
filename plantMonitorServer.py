@@ -158,7 +158,7 @@ def getVideo(foldername):
 def getFolders():
 	subFoldersAndFiles = os.listdir(config['rootPicsDirectory'])
 	os.chdir(config['rootPicsDirectory'])
-	subFoldersAndFiles = sorted(subFoldersAndFiles, key=os.path.getmtime)
+	subFoldersAndFiles = sorted(subFoldersAndFiles, key=os.path.getatime)
 	folders = []
 	for item in subFoldersAndFiles:
 		if (os.path.isdir(config['rootPicsDirectory'] + item)):
@@ -174,7 +174,7 @@ def getFiles(folder):
 
 	files = os.listdir(config['rootPicsDirectory'] + folder)
 	os.chdir(config['rootPicsDirectory'] + folder)
-	files = sorted(files, key=os.path.getmtime)
+	files = sorted(files, key=os.path.getatime)
 	return jsonify(files), 200, {'Access-Control-Allow-Origin': '*'}
 
 @app.route('/setTimeInterval/<interval>', methods=['GET'])
