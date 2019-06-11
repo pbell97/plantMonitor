@@ -72,7 +72,7 @@ def createVideoFromFolder(path, fps):
     # setting the frame width, height width 
     # the width, height of first image 
     height, width, layers = frame.shape   
-    video_name = path.split('/')[-2]
+    video_name = path.split('/')[-2] + ".avi"
     video = cv2.VideoWriter(video_name, 0, fps, (width, height))  
   
     # Appending the images to the video one by one 

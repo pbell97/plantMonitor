@@ -151,6 +151,7 @@ def getPicture(foldername, picture):
 @app.route('/existingFolders/', methods=['GET'])
 def getFolders():
 	subFoldersAndFiles = os.listdir(config['rootPicsDirectory'])
+	os.chdir(os.listdir(config['rootPicsDirectory']))
 	subFoldersAndFiles = sorted(subFoldersAndFiles, key=os.path.getmtime)
 	folders = []
 	for item in subFoldersAndFiles:
@@ -162,11 +163,12 @@ def getFolders():
 @app.route('/existingFiles/<folder>', methods=['GET'])
 def getFiles(folder):
 	subFoldersAndFiles = os.listdir(config['rootPicsDirectory'])
-	subFoldersAndFiles = sorted(subFoldersAndFiles, key=os.path.getmtime)
 	if (folder not in subFoldersAndFiles):
 		return "Folder not in root directory", 500, {'Access-Control-Allow-Origin': '*'}
 
 	files = os.listdir(config['rootPicsDirectory'] + folder)
+	os.chdir(config['rootPicsDirectory'] + folder)
+	files = sorted(subFoldersAndFiles, key=os.path.getmtime)
 	return jsonify(files), 200, {'Access-Control-Allow-Origin': '*'}
 
 @app.route('/setTimeInterval/<interval>', methods=['GET'])
