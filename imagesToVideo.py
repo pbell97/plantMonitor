@@ -82,6 +82,7 @@ def createVideoFromFolder(path, fps):
     # Deallocating memories taken for window creation 
     cv2.destroyAllWindows()  
     video.release()  # releasing the video generated 
+    print("Saved video as: " + str(video_name))
   
   
 if __name__ == "__main__":
