@@ -147,6 +147,12 @@ def getPicture(foldername, picture):
 	# Checks for a few seconds to see if it exists
 	return send_file(config['rootPicsDirectory'] + foldername + "/" + picture, attachment_filename=picture), 200, {'Access-Control-Allow-Origin': '*'}
 
+@app.route('/getVideo/<foldername>/', methods=['GET'])
+@cross_origin(supports_credentials=True)
+def getVideo(foldername):
+	# Checks for a few seconds to see if it exists
+	return send_file(config['rootPicsDirectory'] + foldername + "/" + foldername + ".avi", attachment_filename=foldername + ".avi"), 200, {'Access-Control-Allow-Origin': '*'}
+
 
 @app.route('/existingFolders/', methods=['GET'])
 def getFolders():
