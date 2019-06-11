@@ -151,7 +151,7 @@ def getPicture(foldername, picture):
 @app.route('/existingFolders/', methods=['GET'])
 def getFolders():
 	subFoldersAndFiles = os.listdir(config['rootPicsDirectory'])
-	os.chdir(os.listdir(config['rootPicsDirectory']))
+	os.chdir(config['rootPicsDirectory'])
 	subFoldersAndFiles = sorted(subFoldersAndFiles, key=os.path.getmtime)
 	folders = []
 	for item in subFoldersAndFiles:
