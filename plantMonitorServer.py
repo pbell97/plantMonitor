@@ -208,7 +208,7 @@ def getMainPage():
 
 @app.route('/plantPage.js', methods=['GET'])
 def getJSPage():
-	return send_from_directory('.', plantPage.js), 200, {'Access-Control-Allow-Origin': '*'}
+	return send_from_directory('.', "plantPage.js"), 200, {'Access-Control-Allow-Origin': '*'}
 
 
 app.run(host="0.0.0.0", port=80, debug=True, threaded=True)
