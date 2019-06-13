@@ -111,7 +111,23 @@ function updateStatus(status){
     }
 }
 
+function getConfig(){
+    var route = address + "/getConfig/";
+    makeGet(route, populateConfig);
+}
+
+function populateConfig(config){
+    console.log(config);
+    document.getElementById("configInterval").value = config.timeInterval;
+    document.getElementById("configStartTime").value = config.startTime;
+    document.getElementById("configStopTime").value = config.endTime;
+}
+
+
+
+
 // Get folders
 makeGet(address + '/existingFolders/', updateFolders);
 getCurrentView();
 getStatus();
+getConfig();
