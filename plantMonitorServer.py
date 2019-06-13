@@ -3,7 +3,7 @@ import time
 import os
 import json
 import datetime
-from flask import Flask, jsonify, request, send_file
+from flask import Flask, jsonify, request, send_file, send_from_directory
 from flask_sslify import SSLify
 from flask_cors import CORS, cross_origin
 import threading
@@ -200,7 +200,15 @@ def getConfig():
 	global config
 	return jsonify(config), 200, {'Access-Control-Allow-Origin': '*'}
 
+@app.route('/', methods=['GET'])
+def getMainPage():
+	with open("plantPage.html", 'r') as f:
+		pageData = f.read()
+	return pageData, 200, {'Access-Control-Allow-Origin': '*'}
 
+@app.route('/plantPage.js', methods=['GET'])
+def getJSPage():
+	return send_from_directory('.', plantPage.js), 200, {'Access-Control-Allow-Origin': '*'}
 
 
 app.run(host="0.0.0.0", port=80, debug=True, threaded=True)
