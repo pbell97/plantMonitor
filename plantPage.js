@@ -10,18 +10,13 @@ function makeGet(url, callbackFunction){
     xhr.send();
 }
 
-function makePost(url, callbackFunction){
-    var that = this;
-    $.ajax({
-        url: that.url,
-        type: 'POST',
-        data:{},
-        async: true,
-        success: function (data) {
-            console.log("Success. Got " + data + " from server ");
-            that.callbackFunction(data)
-        }
-    });
+function makePost(url, givenData, callbackFunction){
+    var xhr = new XMLHttpRequest();
+    xhr.open("Post", url, true);
+    xhr.onload = function () {
+        callbackFunction(JSON.parse(xhr.responseText));
+    };
+    xhr.send(givenData);
 }
 
 

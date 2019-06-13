@@ -189,6 +189,7 @@ def setTimeInterval(interval):
 @app.route('/setConfigs/', methods=['POST', 'OPTIONS'])
 def setConfig():
 	global config, configPath
+	print(request.form['config'])
 	config = json.loads(request.form['config'])
 	saveJSON(configPath, config)
 	print(config)
