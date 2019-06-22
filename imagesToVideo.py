@@ -77,7 +77,6 @@ def createVideoFromFolder(path, fps, videoName):
     # setting the frame width, height width 
     # the width, height of first image 
     height, width, layers = frame.shape   
-    videoName = savePath
     video = cv2.VideoWriter(videoName, 0, fps, (width, height))  
   
     # Appending the images to the video one by one 
