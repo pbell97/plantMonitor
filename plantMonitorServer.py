@@ -154,7 +154,7 @@ def getVideo(foldername, fps):
 	currentFiles = os.listdir(config['rootPicsDirectory'])
 	for fileName in currentFiles:
 		if "video_" in fileName:
-			os.remove(fileName)
+			os.remove(config['rootPicsDirectory'] + fileName)
 
 
 	folderPath = config['rootPicsDirectory'] + foldername + "/"
