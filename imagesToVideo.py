@@ -4,6 +4,7 @@ import os
 import json
 import cv2  
 from PIL import Image  
+import sys
   
   
   
@@ -50,7 +51,7 @@ def reszieImages(path):
             print(im.filename.split('\\')[-1], " is resized")  
   
 # Video Generating function 
-def createVideoFromFolder(path, fps): 
+def createVideoFromFolder(path, fps, videoName): 
     reszieImages(path)
     image_folder = '.' # make sure to use your folder 
     
@@ -76,8 +77,8 @@ def createVideoFromFolder(path, fps):
     # setting the frame width, height width 
     # the width, height of first image 
     height, width, layers = frame.shape   
-    video_name = path.split('/')[-2] + ".avi"
-    video = cv2.VideoWriter(video_name, 0, fps, (width, height))  
+    videoName = savePath
+    video = cv2.VideoWriter(videoName, 0, fps, (width, height))  
   
     # Appending the images to the video one by one 
     for image in images:  
@@ -86,15 +87,13 @@ def createVideoFromFolder(path, fps):
     # Deallocating memories taken for window creation 
     cv2.destroyAllWindows()  
     video.release()  # releasing the video generated 
-    print("Saved video as: " + str(video_name))
+    print("Saved video as: " + str(videoName))
   
   
 if __name__ == "__main__":
-    # Folder which contains all the images 
-    # from which video is to be generated 
-    path = "/Users/patrickbell/Desktop/pics/"
-    video_name = 'mygeneratedvideo.avi'
-    fps = 10
+    folderPath = sys.argv[1]
+    fps = sys.argv[2]
+    videoName = sys.argv[3]
 
     # Calling the generate_video function 
-    createVideoFromFolder(path, fps) 
+    createVideoFromFolder(folderPath, fps, videoName) 

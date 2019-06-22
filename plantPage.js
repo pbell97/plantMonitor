@@ -122,6 +122,7 @@ function updateConfig(){
     config.timeInterval = document.getElementById("configInterval").value;
     config.startTime = document.getElementById("configStartTime").value;
     config.endTime = document.getElementById("configStopTime").value;
+    config.rootPicsDirectory = "/home/pi/Desktop/plantPics/";
     makePost(address + "/setConfigs/", JSON.stringify(config), function(input){console.log(input)});
 }
 
