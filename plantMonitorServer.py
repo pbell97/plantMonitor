@@ -163,7 +163,7 @@ def getVideo(foldername, fps):
 	os.system(command)
 	# time.sleep(1)
 
-	return send_file(videoName, attachment_filename=foldername + ".avi"), 200, {'Access-Control-Allow-Origin': '*'}
+	return send_file(videoName, attachment_filename=foldername + ".avi", mimetype="video/avi"), 200, {'Access-Control-Allow-Origin': '*'}
 
 
 @app.route('/existingFolders/', methods=['GET'])
