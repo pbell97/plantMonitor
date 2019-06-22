@@ -91,7 +91,7 @@ def createVideoFromFolder(path, fps, videoName):
   
 if __name__ == "__main__":
     folderPath = sys.argv[1]
-    fps = sys.argv[2]
+    fps = int(sys.argv[2])
     videoName = sys.argv[3]
 
     # Calling the generate_video function 
