@@ -151,14 +151,14 @@ def getPicture(foldername, picture):
 @app.route('/getVideo/<foldername>/<fps>', methods=['GET'])
 @cross_origin(supports_credentials=True)
 def getVideo(foldername, fps):
-	currentFiles = os.listdir('.')
+	currentFiles = os.listdir(config['rootPicsDirectory'])
 	for fileName in currentFiles:
 		if "video_" in fileName:
 			os.remove(fileName)
 
 
 	folderPath = config['rootPicsDirectory'] + foldername + "/"
-	videoName = config['rootPicsDirectory'] + "/" + "video_" + foldername + ".avi"
+	videoName = config['rootPicsDirectory'] + "video_" + foldername + ".avi"
 	command = 'sudo -E python3 imagesToVideo.py ' + folderPath + " " + fps + " " + videoName
 	os.system(command)
 	# time.sleep(1)
