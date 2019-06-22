@@ -12,7 +12,7 @@ function makeGet(url, callbackFunction){
 
 function makePost(url, givenData, callbackFunction){
     var xhr = new XMLHttpRequest();
-    xhr.open("Post", url, true);
+    xhr.open("POST", url, true);
     xhr.onload = function () {
         callbackFunction(JSON.parse(xhr.responseText));
     };
