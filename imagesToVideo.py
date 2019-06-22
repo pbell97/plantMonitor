@@ -42,13 +42,13 @@ def reszieImages(path):
     
             # im.size includes the height and width of image 
             width, height = im.size    
-            print(width, height) 
+            # print(width, height) 
     
             # resizing  
             imResize = im.resize((mean_width, mean_height), Image.ANTIALIAS)  
             imResize.save( file, 'JPEG', quality = 95) # setting quality 
             # printing each resized image name 
-            print(im.filename.split('\\')[-1], " is resized")  
+            # print(im.filename.split('\\')[-1], " is resized")  
   
 # Video Generating function 
 def createVideoFromFolder(path, fps, videoName): 
@@ -65,7 +65,7 @@ def createVideoFromFolder(path, fps, videoName):
                  img.endswith(".jpeg") or
                  img.endswith("png")] 
 
-    print("Sorted images: " + str(images))
+    print("Sorted " + str(len(images)) + " images")
 
      
     # Array images should only consider 

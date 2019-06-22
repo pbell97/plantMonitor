@@ -7,6 +7,7 @@ from flask import Flask, jsonify, request, send_file, send_from_directory
 from flask_sslify import SSLify
 from flask_cors import CORS, cross_origin
 import threading
+import os
 
 
 app = Flask(__name__)
@@ -147,11 +148,22 @@ def getPicture(foldername, picture):
 	# Checks for a few seconds to see if it exists
 	return send_file(config['rootPicsDirectory'] + foldername + "/" + picture, attachment_filename=picture), 200, {'Access-Control-Allow-Origin': '*'}
 
-@app.route('/getVideo/<foldername>/', methods=['GET'])
+@app.route('/getVideo/<foldername>/<fps>', methods=['GET'])
 @cross_origin(supports_credentials=True)
-def getVideo(foldername):
-	# Checks for a few seconds to see if it exists
-	return send_file(config['rootPicsDirectory'] + foldername + "/" + foldername + ".avi", attachment_filename=foldername + ".avi"), 200, {'Access-Control-Allow-Origin': '*'}
+def getVideo(foldername, fps):
+	currentFiles = os.listdir('.')
+	for fileName in currentFiles:
+		if "video_" in fileName:
+			os.remove(fileName)
+
+
+	folderPath = config['rootPicsDirectory'] + foldername + "/"
+	videoName = config['rootPicsDirectory'] + "/" + "video_" + foldername + ".avi"
+	command = 'sudo -E python3 imagesToVideo.py ' + folderPath + " " + fps + " " + videoName
+	os.system(command)
+	# time.sleep(1)
+
+	return send_file(videoName, attachment_filename=foldername + ".avi"), 200, {'Access-Control-Allow-Origin': '*'}
 
 
 @app.route('/existingFolders/', methods=['GET'])
