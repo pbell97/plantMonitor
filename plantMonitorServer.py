@@ -190,10 +190,14 @@ def setTimeInterval(interval):
 def setConfig():
 	global config, configPath
 	config = json.loads(request.data)
+	config['rootPicsDirectory'] = config['rootPicsDirectory'].encode("utf-8")
+	config['endTime'] = int(config['endTime'])
+	config['startTime'] = int(config['startTime'])
+	config['timeInterval'] = int(config['timeInterval'])
 	saveJSON(configPath, config)
 	print(config)
 
-	return jsonify(True), 200, {'Access-Control-Allow-Origin': '*'}
+	return jsonify(True), 201, {'Access-Control-Allow-Origin': '*'}
 
 @app.route('/getConfig/', methods=['GET'])
 def getConfig():

@@ -75,7 +75,7 @@ function getFile(file){
 }
 
 function getCurrentView(){
-    var src = address + "/currentView/";
+    var src = address + "/currentView/?" + Math.floor(Math.random()*1000);
     document.getElementById('currentViewPicture').src = src;
 }
 
@@ -88,7 +88,6 @@ function stopServer(){
     makeGet(address + "/stopCamera/", function(){});
     setTimeout(getStatus, 7000);
 }
-
 
 function getStatus(){
     makeGet(address + "/cameraIsRunning/", updateStatus);
@@ -118,7 +117,13 @@ function populateConfig(config){
     document.getElementById("configStopTime").value = config.endTime;
 }
 
-
+function updateConfig(){
+    var config = {};
+    config.timeInterval = document.getElementById("configInterval").value;
+    config.startTime = document.getElementById("configStartTime").value;
+    config.endTime = document.getElementById("configStopTime").value;
+    makePost(address + "/setConfigs/", JSON.stringify(config), function(input){console.log(input)});
+}
 
 
 // Get folders
