@@ -10,16 +10,18 @@
             "request": "launch",
             "module": "flask",
             "env": {
-                "FLASK_APP": "testFlask.py",
+                "FLASK_APP": "plantMonitorServer.py",
                 "FLASK_ENV": "development",
                 "FLASK_DEBUG": "0"
             },
             "args": [
+                "sudo -E",
                 "run",
                 "--no-debugger",
                 "--no-reload"
             ],
-            "jinja": true
+            "jinja": true,
+
         },
         {
             "name": "Python: Current File",

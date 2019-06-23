@@ -159,7 +159,7 @@ def getVideo(foldername, fps):
 
 	folderPath = config['rootPicsDirectory'] + foldername + "/"
 	videoName = config['rootPicsDirectory'] + "video_" + foldername + ".avi"
-	command = 'sudo -E python3 imagesToVideo.py ' + folderPath + " " + fps + " " + videoName
+	command = 'sudo -E python3 ' + config['rootPicsDirectory'] + '../imagesToVideo.py ' + folderPath + " " + fps + " " + videoName
 	os.system(command)
 	# time.sleep(1)
 
@@ -216,9 +216,9 @@ def getConfig():
 	global config
 	return jsonify(config), 200, {'Access-Control-Allow-Origin': '*'}
 
-@app.route('/', methods=['GET'])
+@app.route('/plantPage.html', methods=['GET'])
 def getMainPage():
-	with open("plantPage.html", 'r') as f:
+	with open(config['rootPicsDirectory'] + "/../" "plantPage.html", 'r') as f:
 		pageData = f.read()
 	return pageData, 200, {'Access-Control-Allow-Origin': '*'}
 

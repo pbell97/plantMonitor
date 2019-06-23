@@ -126,6 +126,12 @@ function updateConfig(){
     makePost(address + "/setConfigs/", JSON.stringify(config), function(input){console.log(input)});
 }
 
+function getVideo(){
+    if (latestFolder == "") return;
+    var fps = document.getElementById('givenFPS').value;
+    var combinedAddress = address + "/getVideo/" + latestFolder + "/" + fps;
+    window.location.assign(combinedAddress);
+}
 
 // Get folders
 makeGet(address + '/existingFolders/', updateFolders);
